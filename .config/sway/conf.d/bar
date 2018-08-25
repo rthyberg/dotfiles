@@ -1,0 +1,17 @@
+bar {
+  font pango:Hack 9, FontAwesome 12
+  position top
+  status_command i3status-rs /home/rthyberg/.config/i3status-rs/config
+  colors {
+    background #0B1C2C
+    statusline #E5EBF1
+    separator  #568BBF
+
+    focused_workspace  #627E99 #568BBF #E5EBF1
+    active_workspace   #627E99 #627E99 #E5EBF1
+    inactive_workspace #627E99 #223B54 #888888
+    urgent_workspace   #627E99 #8B56BF #E5EBF1
+    binding_mode       #627E99 #8B56BF #E5EBF1
+  }
+}
+
