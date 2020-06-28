@@ -16,12 +16,13 @@ set $right l
 # Your preferred terminal emulator
 set $term termite
 # Your preferred application launcher
-set $menu dmenu_run
+set $menu j4-dmenu-desktop --dmenu='bemenu -i --tb "#8B56BF" --tf "#E5EBF1" --fb "#223B54" --ff "#E5EBF1" --nb "#627E99" --nf "#223B54" --hb "#568BBF" --hf "#E5EBF1" --fn "pango:Hack 12"' --term='termite'
 
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in __DATADIR__/backgrounds/sway/)
-output * bg /home/rthyberg/.config/wallpaper/atime.png fill
+output * bg /home/rthyberg/.config/wallpaper/dark-* fill
+#output * bg /home/rthyberg/.config/wallpaper/light-baron-tree.png* fill
 
 # Example configuration:
 #
@@ -45,8 +46,10 @@ output * bg /home/rthyberg/.config/wallpaper/atime.png fill
 
 ### Input configuration
 #
+  input type:keyboard xkb_options caps:escape
+#input type:keyboard            # or input <identifier>
+
 # Example configuration:
-#
 #   input "2:14:SynPS/2_Synaptics_TouchPad" {
 #       dwt enabled
 #       tap enabled

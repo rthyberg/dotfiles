@@ -5,6 +5,9 @@ call plug#begin('~/.config/nvim/plugged')
         " Util
         Plug 'vim-scripts/StripWhiteSpaces'
         Plug 'scrooloose/nerdtree'
+        Plug 'vimwiki/vimwiki'
+        " Sytnax highlighting
+        Plug 'calviken/vim-gdscript3'
         " Code Compeletion
         Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
         Plug 'zchee/deoplete-clang'
@@ -13,26 +16,41 @@ call plug#begin('~/.config/nvim/plugged')
         Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
         Plug 'zchee/deoplete-jedi'
         Plug 'sebastianmarkow/deoplete-rust'
+        Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+        Plug 'pangloss/vim-javascript'
+        Plug 'mattn/emmet-vim'
+        Plug 'maxmellon/vim-jsx-pretty'
 call plug#end()
-
+""" Base Settings
+set nocompatible
 """ Base16-git helper
-if filereadable(expand("~/.vimrc_background"))
-  let base16colorspace=256
-  source ~/.vimrc_background
-endif
+"if filereadable(expand("~/.vimrc_background"))
+"  let base16colorspace=256
+"  source ~/.vimrc_background
+"endif
 "
 """ Color Schemes
 "set background=dark
 set termguicolors   " use term colors
+"""Light Themes
+"colorscheme base16-solarized-light
+"colorscheme base16-atelier-cave-light
+"colorscheme base16-atelier-dune-light
+"colorscheme base16-atelier-lakeside-light
+"""Dark themes
 colorscheme base16-harmonic-dark
+"colorscheme base16-chalk
+"colorscheme base16-gruvbox-dark-pale
 """ Syntax
 syntax enable " enable syntax processing
 hi Normal guibg=NONE ctermbg=NONE " set background to transparent
+"au ColorScheme * hi Normal ctermbg=none guibg=none   " https://www.reddit.com/r/neovim/comments/3v06lo/making_the_background_transparent/
 
 """ Tab settings
 set tabstop=4 " number of visual spaces per tab
 set softtabstop=4 " number of spaces in a tab when editing
 set expandtab      " tabs are spaces
+
 
 """ UI config
 set number " show line numbers
@@ -42,7 +60,6 @@ set showcmd "show last command  used for powerline plugin
 " bind nerdtree to ctrl-n
 map <C-n> :NERDTreeToggle<CR>
 " close nerdtree if only open
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 """ Python bins
 " Neovim requires Python paths
@@ -50,7 +67,7 @@ let g:python_host_prog = '/usr/bin/python2'
 let g:python3_host_prog = '/usr/bin/python3'
 
 """ Code formating
-filetype indent on "load filetpe-specific indent files
+filetype plugin indent on "load filetpe-specific indent files
 "set wildmenu "visual autocomplete for command menu
 set lazyredraw "only redraw when need to.. Faster macros
 "set showmatch "higlight matching [{()}]
@@ -74,6 +91,12 @@ let g:deoplete#enable_at_startup = 1
 set completeopt-=preview "no scrach pad
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>" " deoplete tab-complete
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>" " reverse tab-complete
+
+""" Go
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+let g:go_highlight_structs = 1
+let g:go_highlight_interfaces = 1
+let g:go_highlight_operators = 1
 
 """ C Family
 let g:deoplete#sources#clang#libclang_path = '/usr/lib/libclang.so' " clanglib for deoplete
@@ -148,3 +171,31 @@ let g:deoplete#sources#rust#documentation_max_height=20
 """ HTML
 " set tabs to 2 spaces for html
 autocmd Filetype html setlocal ts=2 sts=2 sw=2
+let g:user_emmet_leader_key=','
+""" CSS
+" set tabs to 2 spaces for css
+autocmd Filetype css setlocal ts=2 sts=2 sw=2
+let g:user_emmet_leader_key=','
+
+
+"""vim-javascript
+"Enables syntax highlighting for JSDocs
+autocmd Filetype javascript setlocal ts=2 sts=2 sw=2
+let g:javascript_plugin_jsdoc = 1
+"Enables additonal highlighting for NGdocs, Requires JSDoc ^ enables
+let g:javascript_plugin_ngdoc = 1
+
+"""vim-jsx-pretty
+let g:vim_jsx_pretty_colorful_config = 1
+
+"""Vimwiki
+let vimwiki_path='/home/rthyberg/Dropbox/notes/vimwiki'
+let vimwiki_export_path='home/rthyberg/Dropbox/vimwiki_html'
+"let wiki_settings={
+"\ 'template_path': vimwiki_export_path.'vimwiki-assets/',
+"\ 'template_default': 'default',
+"\ 'template_ext': '.html',
+"\ 'auto_export': 0,
+"\ 'nested_syntaxes': {
+"\ 'js':'javascript',
+"\ }}
